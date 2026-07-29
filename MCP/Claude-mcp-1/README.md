@@ -1,20 +1,23 @@
-# MCP Chat
+# MCP Chat (Google Gemini Powered)
 
-MCP Chat is a command-line interface application that enables interactive chat capabilities with AI models through the Anthropic API. The application supports document retrieval, command-based prompts, and extensible tool integrations via the MCP (Model Control Protocol) architecture.
+MCP Chat is a command-line interface application that enables interactive chat capabilities with AI models through the Google Gemini API (Google AI Studio). The application supports document retrieval, command-based prompts, and extensible tool integrations via the MCP (Model Context Protocol) architecture.
 
 ## Prerequisites
 
-- Python 3.9+
-- Anthropic API Key
+- Python 3.10+
+- Google AI Studio API Key (Free API key from [aistudio.google.com](https://aistudio.google.com/))
 
 ## Setup
 
 ### Step 1: Configure the environment variables
 
-1. Create or edit the `.env` file in the project root and verify that the following variables are set correctly:
+1. Create or edit the `.env` file in the project root and set your API key:
 
-```
-ANTHROPIC_API_KEY=""  # Enter your Anthropic API secret key
+```env
+GEMINI_MODEL="gemini-2.5-flash-lite"
+GEMINI_API_KEY="your-google-ai-studio-api-key-here"
+
+USE_UV=1
 ```
 
 ### Step 2: Install dependencies
@@ -42,7 +45,7 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 uv pip install -e .
 ```
 
-4. Run the project
+4. Run the project:
 
 ```bash
 uv run main.py
@@ -60,10 +63,10 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 2. Install dependencies:
 
 ```bash
-pip install anthropic python-dotenv prompt-toolkit "mcp[cli]==1.8.0"
+pip install google-genai python-dotenv prompt-toolkit "mcp[cli]>=1.8.0"
 ```
 
-3. Run the project
+3. Run the project:
 
 ```bash
 python main.py
@@ -77,7 +80,7 @@ Simply type your message and press Enter to chat with the model.
 
 ### Document Retrieval
 
-Use the @ symbol followed by a document ID to include document content in your query:
+Use the `@` symbol followed by a document ID to include document content in your query:
 
 ```
 > Tell me about @deposition.md
@@ -85,7 +88,7 @@ Use the @ symbol followed by a document ID to include document content in your q
 
 ### Commands
 
-Use the / prefix to execute commands defined in the MCP server:
+Use the `/` prefix to execute commands defined in the MCP server:
 
 ```
 > /summarize deposition.md
@@ -98,14 +101,3 @@ Commands will auto-complete when you press Tab.
 ### Adding New Documents
 
 Edit the `mcp_server.py` file to add new documents to the `docs` dictionary.
-
-### Implementing MCP Features
-
-To fully implement the MCP features:
-
-1. Complete the TODOs in `mcp_server.py`
-2. Implement the missing functionality in `mcp_client.py`
-
-### Linting and Typing Check
-
-There are no lint or type checks implemented.
