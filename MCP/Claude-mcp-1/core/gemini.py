@@ -52,7 +52,7 @@ def format_mcp_tools_for_gemini(mcp_tools: list) -> list[types.Tool]:
 
 
 class Gemini:
-    def __init__(self, model: str = "gemini-2.5-flash-lite", api_key: Optional[str] = None):
+    def __init__(self, model: str = "gemini-2.0-flash-lite", api_key: Optional[str] = None):
         self.model = model
         key = api_key or os.getenv("GEMINI_API_KEY")
         if key:

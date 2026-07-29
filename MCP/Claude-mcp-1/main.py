@@ -13,7 +13,7 @@ from core.cli import CliApp
 load_dotenv()
 
 # Gemini Config
-gemini_model = os.getenv("GEMINI_MODEL", "gemini-2.5-flash-lite")
+gemini_model = os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite")
 gemini_api_key = os.getenv("GEMINI_API_KEY", "")
 
 
@@ -60,6 +60,6 @@ async def main():
 
 
 if __name__ == "__main__":
-    if sys.platform == "win32":
+    if sys.platform == "win32" and sys.version_info < (3, 14):
         asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
     asyncio.run(main())

@@ -14,7 +14,7 @@ MCP Chat is a command-line interface application that enables interactive chat c
 1. Create or edit the `.env` file in the project root and set your API key:
 
 ```env
-GEMINI_MODEL="gemini-2.5-flash-lite"
+GEMINI_MODEL="gemini-3.5-flash-lite"
 GEMINI_API_KEY="your-google-ai-studio-api-key-here"
 
 USE_UV=1
