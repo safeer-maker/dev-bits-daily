@@ -48,19 +48,25 @@ class CliChat(Chat):
         )
 
     async def _process_command(self, query: str) -> bool:
-        if not query.startswith("/"):
+        words = query.split()
+        slash_idx = next((i for i, w in enumerate(words) if w.startswith("/")), -1)
+        if slash_idx == -1:
             return False
 
-        words = query.split()
-        command = words[0].replace("/", "")
+        command = words[slash_idx].replace("/", "")
+        doc_id = words[slash_idx + 1] if slash_idx + 1 < len(words) else ""
 
-        messages = await self.doc_client.get_prompt(
-            command, {"doc_id": words[1]}
-        )
+        try:
+            messages = await self.doc_client.get_prompt(
+                command, {"doc_id": doc_id}
+            )
 
-        for msg in convert_prompt_messages_to_message_params(messages):
-            self.gemini_service.add_user_message(self.messages, msg.get("content", ""))
-        return True
+            for msg in convert_prompt_messages_to_message_params(messages):
+                self.gemini_service.add_user_message(self.messages, msg.get("content", ""))
+            return True
+        except Exception as e:
+            print(f"Error executing command /{command}: {e}")
+            return False
 
     async def _process_query(self, query: str):
         if await self._process_command(query):

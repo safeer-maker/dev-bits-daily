@@ -67,10 +67,12 @@ class UnifiedCompleter(Completer):
                     )
             return
 
-        if text.startswith("/"):
-            parts = text[1:].split()
+        if "/" in text_before_cursor:
+            last_slash_pos = text_before_cursor.rfind("/")
+            after_slash = text_before_cursor[last_slash_pos + 1 :]
+            parts = after_slash.split()
 
-            if len(parts) <= 1 and not text.endswith(" "):
+            if len(parts) <= 1 and not text_before_cursor.endswith(" "):
                 cmd_prefix = parts[0] if parts else ""
 
                 for prompt in self.prompts:
@@ -83,7 +85,7 @@ class UnifiedCompleter(Completer):
                         )
                 return
 
-            if len(parts) == 1 and text.endswith(" "):
+            if len(parts) == 1 and text_before_cursor.endswith(" "):
                 cmd = parts[0]
 
                 if cmd in self.prompt_dict:
@@ -99,13 +101,12 @@ class UnifiedCompleter(Completer):
                 doc_prefix = parts[-1]
 
                 for resource in self.resources:
-                    if "id" in resource and resource["id"].lower().startswith(
-                        doc_prefix.lower()
-                    ):
+                    res_id = resource if isinstance(resource, str) else resource.get("id", "")
+                    if res_id.lower().startswith(doc_prefix.lower()):
                         yield Completion(
-                            resource["id"],
+                            res_id,
                             start_position=-len(doc_prefix),
-                            display=resource["id"],
+                            display=res_id,
                         )
                 return
 
