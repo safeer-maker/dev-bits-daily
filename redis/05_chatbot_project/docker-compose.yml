@@ -1,0 +1,88 @@
+version: "3.9"
+
+# Full TechBot stack.
+# Usage:
+#   docker-compose up -d redis
+#   python scripts/ingest_docs.py       # one-time setup
+#   docker-compose up -d                # start everything
+
+services:
+
+  redis:
+    image: redis/redis-stack:latest
+    container_name: techbot-redis
+    ports:
+      - "6379:6379"    # Redis server
+      - "8001:8001"    # RedisInsight GUI
+    volumes:
+      - redis-data:/data
+    environment:
+      - REDIS_ARGS=--appendonly yes --requirepass ""
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  worker-gpu:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: techbot-worker-gpu
+    command: >
+      celery -A celery_app worker
+      --queues=gpu
+      --concurrency=1
+      --pool=solo
+      --hostname=gpu-worker@%h
+      --loglevel=info
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - USE_FAKE_LLM=${USE_FAKE_LLM:-true}
+      - VLLM_URL=${VLLM_URL:-http://vllm:8000/v1/completions}
+    depends_on:
+      redis:
+        condition: service_healthy
+    # Uncomment if you have a GPU:
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+
+  flower:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: techbot-flower
+    command: >
+      celery -A celery_app flower
+      --port=5555
+    ports:
+      - "5555:5555"
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: techbot-api
+    command: uvicorn main:api --host 0.0.0.0 --port 9000
+    ports:
+      - "9000:9000"
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - USE_FAKE_LLM=${USE_FAKE_LLM:-true}
+      - VLLM_URL=${VLLM_URL:-http://vllm:8000/v1/completions}
+    depends_on:
+      redis:
+        condition: service_healthy
+
+volumes:
+  redis-data:
