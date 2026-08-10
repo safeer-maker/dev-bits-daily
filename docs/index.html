@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="DevBits Daily Light Edition - Standalone GitHub Pages Single-Page Funnel Demo">
+  <title>DevBits Daily | GitHub Pages Light Edition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    /* Reset & Base Styles - Emerald & Gold Light Luxury Theme */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --font-heading: 'Space Grotesk', sans-serif;
+      --font-body: 'Outfit', sans-serif;
+      
+      --bg-main: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-subtle: #f1f5f9;
+      
+      --primary: #059669; /* Emerald Green */
+      --primary-hover: #047857;
+      --primary-light: #d1fae5;
+      
+      --accent-gold: #d97706; /* Amber Gold */
+      --accent-gold-light: #fef3c7;
+      
+      --text-dark: #0f172a;
+      --text-muted: #475569;
+      --text-light: #94a3b8;
+      
+      --border: #e2e8f0;
+      --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.05);
+      --shadow-lg: 0 20px 25px -5px rgba(5, 150, 105, 0.1), 0 8px 10px -6px rgba(0,0,0,0.04);
+      --radius: 16px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-main);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Top Announcement Bar */
+    .top-banner {
+      background: linear-gradient(90deg, #059669, #0d9488, #d97706);
+      color: white;
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    /* Header */
+    header {
+      padding: 24px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      text-decoration: none;
+    }
+
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      color: white;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+    }
+
+    .badge-gh {
+      background: var(--accent-gold-light);
+      color: var(--accent-gold);
+      border: 1px solid rgba(217, 119, 6, 0.3);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 70px 0 50px;
+      text-align: center;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 6px 18px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .hero-h1 {
+      font-family: var(--font-heading);
+      font-size: 3.4rem;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+    }
+
+    .hero-h1 span {
+      color: var(--primary);
+      background: linear-gradient(135deg, #059669 0%, #0284c7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 720px;
+      margin: 0 auto 36px;
+    }
+
+    /* Interactive Calculator Card */
+    .calc-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px;
+      box-shadow: var(--shadow-lg);
+      max-width: 780px;
+      margin: 0 auto 60px;
+      text-align: left;
+    }
+
+    .calc-header {
+      margin-bottom: 24px;
+    }
+
+    .calc-header h3 {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      color: var(--text-dark);
+    }
+
+    .slider-group {
+      margin-bottom: 28px;
+    }
+
+    .slider-label {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+
+    .range-input {
+      width: 100%;
+      height: 8px;
+      background: var(--bg-subtle);
+      border-radius: 4px;
+      outline: none;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      background: var(--bg-subtle);
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 28px;
+    }
+
+    .res-box {
+      text-align: center;
+    }
+
+    .res-number {
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .res-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Action Form */
+    .action-form {
+      display: flex;
+      gap: 12px;
+    }
+
+    .form-input {
+      flex: 1;
+      padding: 16px 20px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .form-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
+    }
+
+    .btn-submit {
+      background: var(--primary);
+      color: white;
+      padding: 16px 32px;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-submit:hover {
+      background: var(--primary-hover);
+    }
+
+    /* Feature Grid */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      padding: 40px 0 80px;
+    }
+
+    .f-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 28px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .f-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
+    .f-title {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .f-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 30px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero-h1 { font-size: 2.3rem; }
+      .calc-card { padding: 24px; }
+      .results-grid { grid-template-columns: 1fr; }
+      .action-form { flex-direction: column; }
+      .features { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Banner -->
+  <div class="top-banner">
+    🌐 LIGHT EDITION — GitHub Pages Static Funnel Demo
+  </div>
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <a href="#" class="brand">
+        <div class="brand-icon">🌿</div>
+        <span>DevBits <strong style="color: var(--primary);">Light</strong></span>
+      </a>
+      <span class="badge-gh">✓ GitHub Pages Ready</span>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <span class="hero-tag">EMERALD & GOLD THEME EDITION</span>
+      <h1 class="hero-h1">
+        Deploy Instant Funnels Directly via <span>GitHub Pages</span>
+      </h1>
+      <p class="hero-p">
+        A lightweight, single-page alternative theme built with zero external framework dependencies. Test instant loading speeds and interactive client-side ROI calculation.
+      </p>
+
+      <!-- Interactive Calculator Component -->
+      <div class="calc-card">
+        <div class="calc-header">
+          <h3>📊 Interactive ROI & Savings Calculator</h3>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">Adjust team size to calculate monthly engineering hours saved.</p>
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-label">
+            <span>Team Size:</span>
+            <span id="team-val" style="color: var(--primary); font-weight: 700;">5 Developers</span>
+          </div>
+          <input type="range" min="1" max="25" value="5" class="range-input" id="team-range" oninput="updateCalc(this.value)">
+        </div>
+
+        <div class="results-grid">
+          <div class="res-box">
+            <div class="res-number" id="hours-saved">160 hrs</div>
+            <div class="res-label">Monthly Hours Saved</div>
+          </div>
+          <div class="res-box">
+            <div class="res-number" id="cost-saved" style="color: var(--accent-gold);">$11,200</div>
+            <div class="res-label">Estimated Monthly Savings</div>
+          </div>
+        </div>
+
+        <!-- Lead Form -->
+        <form class="action-form" onsubmit="handleLeadSubmit(event)">
+          <input type="email" class="form-input" id="lead-email" placeholder="Enter your work email..." required>
+          <button type="submit" class="btn-submit" id="submit-btn">Claim Free Toolkit →</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Feature Grid -->
+    <section class="features">
+      <div class="f-card">
+        <div class="f-icon">⚡</div>
+        <h4 class="f-title">Zero Build Overhead</h4>
+        <p class="f-desc">100% valid HTML/CSS/JS. Drop directly into GitHub Pages or static host without npm build errors.</p>
+      </div>
+      <div class="f-card">
+        <div class="f-icon">🎨</div>
+        <h4 class="f-title">Light Luxury Theme</h4>
+        <p class="f-desc">Emerald green & amber gold palette designed for high contrast and executive accessibility.</p>
+      </div>
+      <div class="f-card">
+        <div class="f-icon">🚀</div>
+        <h4 class="f-title">Instant Loading</h4>
+        <p class="f-desc">Under 15KB total asset weight with crisp Google Fonts (`Outfit` & `Space Grotesk`).</p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>© 2026 DevBits Light Edition • Hosted on GitHub Pages</p>
+    </footer>
+  </div>
+
+  <script>
+    function updateCalc(val) {
+      document.getElementById('team-val').textContent = `${val} Developer${val > 1 ? 's' : ''}`;
+      const hours = val * 32;
+      const savings = hours * 70;
+      document.getElementById('hours-saved').textContent = `${hours} hrs`;
+      document.getElementById('cost-saved').textContent = `$${savings.toLocaleString()}`;
+    }
+
+    function handleLeadSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById('lead-email').value;
+      const btn = document.getElementById('submit-btn');
+      btn.textContent = '✓ Access Granted!';
+      btn.style.backgroundColor = '#047857';
+      alert(`🎉 Access link sent to ${email}! (GitHub Pages Test Successful)`);
+    }
+  </script>
+</body>
+</html>
