@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "npx -y serve -p 3000",
-    "start": "npx -y serve -p 3000",
-    "build": "echo 'Production static bundle ready'",
-    "preview": "npx -y serve -p 3000"
+    "build": "node build.js",
+    "preview": "npx -y serve dist -p 3000",
+    "start": "npx -y serve dist -p 3000"
   }
 }
