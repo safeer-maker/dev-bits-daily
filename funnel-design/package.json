@@ -1,0 +1,12 @@
+{
+  "name": "devbits-funnel-design",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "npx -y serve -p 3000",
+    "start": "npx -y serve -p 3000",
+    "build": "echo 'Production static bundle ready'",
+    "preview": "npx -y serve -p 3000"
+  }
+}

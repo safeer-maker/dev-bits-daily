@@ -1,0 +1,453 @@
+---
+import '../styles/styles.css';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="DevBits Daily Premium Toolkit - Master Modern Web Architecture & AI Engineering with production-ready boilerplates and playbooks.">
+  <title>DevBits Daily | Production AI & Full-Stack Playbook (Node/Astro)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Ambient Light Effects -->
+  <div class="ambient-light ambient-light-1"></div>
+  <div class="ambient-light ambient-light-2"></div>
+  <div class="ambient-light ambient-light-3"></div>
+
+  <!-- Top Urgency Banner -->
+  <div class="top-bar">
+    <span>🔥 FLASH OFFER: Save 85% on the DevBits Architecture Bundle</span>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <span>Offer Expires In:</span>
+      <div class="timer-box" id="countdown-timer">14:59</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Navigation Header -->
+    <header class="header">
+      <div class="logo">
+        <div class="logo-icon">&lt;/&gt;</div>
+        <span>DevBits <span class="gradient-text">Daily</span></span>
+      </div>
+      <div class="trust-badge-header">
+        <span>⭐ 4.98/5 Rating</span>
+        <span>•</span>
+        <span>Over 2,400+ Engineers Trust Us</span>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="badge-tag">
+        <span class="badge-dot"></span>
+        <span>NEW RELEASE 2026 EDITION (NODE/ASTRO)</span>
+      </div>
+
+      <h1 class="hero-title">
+        Build Production-Grade <span class="gradient-text">AI Systems</span> & Web Apps in Days, Not Months
+      </h1>
+
+      <p class="hero-subtitle">
+        Stop spending weeks configuring complex AI agent orchestration, MCP tools, and full-stack boilerplates. Get battle-tested code snippets, production templates, and real-world architectures ready to deploy today.
+      </p>
+
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <button class="btn-primary" id="hero-cta-btn" onclick="scrollToPricing()">
+          <span>Get Instant Access Now</span>
+          <span style="font-size: 1.2rem;">→</span>
+        </button>
+        <div class="cta-guarantee">
+          <span>🔒 30-Day Money Back Guarantee</span>
+          <span>⚡ Instant Zip & GitHub Access</span>
+        </div>
+      </div>
+
+      <!-- Hero Product Interactive Preview Window -->
+      <div class="product-preview">
+        <div class="preview-window-bar">
+          <div class="win-dot dot-red"></div>
+          <div class="win-dot dot-yellow"></div>
+          <div class="win-dot dot-green"></div>
+          <span style="font-size: 0.8rem; color: var(--text-dim); margin-left: 12px;">devbits-orchestrator-core.ts — Active Blueprint</span>
+        </div>
+        <div class="preview-content">
+          <div class="preview-sidebar">
+            <div class="preview-item active" onclick="switchTab(this, 'tab1')">⚡ Agentic AI Pipeline</div>
+            <div class="preview-item" onclick="switchTab(this, 'tab2')">🛠️ Custom MCP Protocol</div>
+            <div class="preview-item" onclick="switchTab(this, 'tab3')">🛡️ Rate Limit & Auth</div>
+            <div class="preview-item" onclick="switchTab(this, 'tab4')">📊 Real-Time Telemetry</div>
+          </div>
+          <div class="preview-main">
+            <div class="code-block" id="code-snippet-display"><span class="code-comment">// 🚀 Autonomous Multi-Agent Orchestrator (Included in Pro Bundle)</span>
+<span class="code-keyword">import</span> { AgentEngine, ToolRegistry } <span class="code-keyword">from</span> <span class="code-str">'@devbits/agent-core'</span>;
+
+<span class="code-keyword">export async function</span> <span class="code-func">runProductionPipeline</span>(userPrompt: <span class="code-str">string</span>) {
+  <span class="code-keyword">const</span> registry = <span class="code-keyword">new</span> ToolRegistry({ telemetry: <span class="code-str">'enabled'</span> });
+  <span class="code-keyword">const</span> engine = <span class="code-keyword">new</span> AgentEngine({ model: <span class="code-str">'gemini-3.6-flash'</span>, memory: <span class="code-str">'vector'</span> });
+  
+  <span class="code-keyword">return await</span> engine.<span class="code-func">solveGoal</span>(userPrompt, { maxSteps: 10, autoRetry: <span class="code-keyword">true</span> });
+}</div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 12px; font-size: 0.8rem; color: var(--text-muted);">
+              <span>Status: <span style="color: var(--accent-green);">● Verified Production Ready</span></span>
+              <span>TypeScript 5.8 • ESM Compatible</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Value Stack / Features Section -->
+    <section class="features-section">
+      <div class="section-header">
+        <h2 class="section-title">Everything You Need to <span class="gradient-text">Ship Faster</span></h2>
+        <p class="section-subtitle">Designed for senior developers, technical founders, and ambitious engineers who want to stay ahead of the curve.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="feature-card">
+          <div class="feature-icon">🤖</div>
+          <h3 class="feature-title">AI Agent & MCP Workflows</h3>
+          <p class="feature-desc">Complete SDK wrappers, model fallback triggers, vector storage adapters, and custom tool definitions for Gemini, Claude, and OpenAI APIs.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3 class="feature-title">Production Boilerplates</h3>
+          <p class="feature-desc">Next.js 15 App Router + Vite + TypeScript boilerplates preconfigured with OAuth, Stripe checkout webhooks, and Redis caching.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3 class="feature-title">Security & Rate Limiting</h3>
+          <p class="feature-desc">Battle-tested API token verification, input sanitization routines, and automatic token-bucket rate limiters ready to drop into your endpoints.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📦</div>
+          <h3 class="feature-title">Weekly Code Drops</h3>
+          <p class="feature-desc">Direct access to our private GitHub repo where fresh micro-features, bug fixes, and architectural patterns are committed weekly.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🚀</div>
+          <h3 class="feature-title">CI/CD & Docker Stacks</h3>
+          <p class="feature-desc">Zero-config GitHub Actions workflows, Docker compose setups for local PostgreSQL/Redis/Milvus, and one-click Vercel/Fly.io deploy scripts.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💬</div>
+          <h3 class="feature-title">VIP Discord Community</h3>
+          <p class="feature-desc">Join 2,400+ tech leads and AI developers. Get code reviews, architecture feedback, and direct answers to your technical questions.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="comparison-section">
+      <div class="section-header">
+        <h2 class="section-title">Stop Wasting Time on <span class="gradient-text">Boilerplate Code</span></h2>
+        <p class="section-subtitle">See how DevBits Daily transforms your development velocity.</p>
+      </div>
+
+      <div class="comparison-grid">
+        <div class="comp-box old-way">
+          <div class="comp-title" style="color: var(--accent-rose);">
+            <span>❌ The Old Way (Slow & Frustrating)</span>
+          </div>
+          <ul class="comp-list">
+            <li><span class="icon">❌</span> Spend 3 weeks debugging outdated tutorials and broken NPM packages.</li>
+            <li><span class="icon">❌</span> Manually code auth, Stripe payment webhooks, and rate limiters from scratch.</li>
+            <li><span class="icon">❌</span> Struggle with unhandled edge cases, AI model timeouts, and memory leaks.</li>
+            <li><span class="icon">❌</span> Waste hundreds of hours on infrastructure instead of core product features.</li>
+          </ul>
+        </div>
+
+        <div class="comp-box new-way">
+          <div class="comp-title" style="color: var(--accent-green);">
+            <span>✅ The DevBits Blueprint (Fast & Profitable)</span>
+          </div>
+          <ul class="comp-list">
+            <li><span class="icon">✅</span> Copy-paste production-tested TS/JS snippets and agent pipelines in 5 minutes.</li>
+            <li><span class="icon">✅</span> Launch new AI micro-SaaS projects in a single weekend.</li>
+            <li><span class="icon">✅</span> Fully documented architecture patterns with zero technical debt.</li>
+            <li><span class="icon">✅</span> Continuous updates & lifetime access to new code drops as tech evolves.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Social Proof Testimonials -->
+    <section class="testimonials-section">
+      <div class="section-header">
+        <h2 class="section-title">Loved by <span class="gradient-text">Engineers & Founders</span></h2>
+        <p class="section-subtitle">Here is what developers are saying after building with DevBits.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="testimonial-card">
+          <div>
+            <div class="stars">★★★★★</div>
+            <p class="testimonial-text">"DevBits cut our startup's MVP build time from 2 months down to 9 days. The agentic AI orchestration pipeline alone is worth 10x the price."</p>
+          </div>
+          <div class="author">
+            <div class="author-avatar">MR</div>
+            <div class="author-info">
+              <h4>Marcus Chen</h4>
+              <p>CTO @ Synthetix AI</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div>
+            <div class="stars">★★★★★</div>
+            <p class="testimonial-text">"The code quality is exceptionally clean. No bloated dependencies, pure modern TypeScript. Upgraded my freelance delivery rate by 300%."</p>
+          </div>
+          <div class="author">
+            <div class="author-avatar">SK</div>
+            <div class="author-info">
+              <h4>Sarah Jenkins</h4>
+              <p>Senior Full-Stack Freelancer</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div>
+            <div class="stars">★★★★★</div>
+            <p class="testimonial-text">"If you are building AI agents or SaaS applications in 2026, buying this is a complete no-brainer. The Discord community is super helpful as well."</p>
+          </div>
+          <div class="author">
+            <div class="author-avatar">DL</div>
+            <div class="author-info">
+              <h4>David Larson</h4>
+              <p>Staff Engineer @ CloudScale</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Section / Offer Stack -->
+    <section class="pricing-section" id="pricing-section">
+      <div class="section-header">
+        <h2 class="section-title">Choose Your <span class="gradient-text">Access Tier</span></h2>
+        <p class="section-subtitle">One-time payment. Lifetime updates. No recurring subscription fees.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Starter Tier -->
+        <div class="pricing-card">
+          <div>
+            <h3 class="tier-name">Starter Kit</h3>
+            <p class="tier-desc">Essential templates for solo developers building their first AI project.</p>
+            <div class="price-box">
+              <span class="currency">$</span>
+              <span class="amount">29</span>
+              <span class="original-price">$149</span>
+            </div>
+            <ul class="pricing-features">
+              <li class="included"><span class="check-icon">✓</span> Core TS Web Boilerplate</li>
+              <li class="included"><span class="check-icon">✓</span> Standard AI Prompt Templates</li>
+              <li class="included"><span class="check-icon">✓</span> API Security & Auth Checklists</li>
+              <li class="included"><span class="check-icon">✓</span> Lifetime Code Access</li>
+              <li><span style="color: var(--text-dim);">✗</span> AI Agent Orchestration Core</li>
+              <li><span style="color: var(--text-dim);">✗</span> VIP Discord Community Access</li>
+            </ul>
+          </div>
+          <button class="btn-secondary" style="width: 100%;" onclick="openCheckout('Starter Kit', 29)">Select Starter</button>
+        </div>
+
+        <!-- Pro Tier (Popular / Best Value) -->
+        <div class="pricing-card popular">
+          <div class="popular-badge">★ MOST POPULAR - SAVE 85%</div>
+          <div>
+            <h3 class="tier-name">Pro Architecture Bundle</h3>
+            <p class="tier-desc">Complete full-stack blueprint + AI Agent & MCP suite for production apps.</p>
+            <div class="price-box">
+              <span class="currency">$</span>
+              <span class="amount">47</span>
+              <span class="original-price">$299</span>
+            </div>
+            <ul class="pricing-features">
+              <li class="included"><span class="check-icon">✓</span> <strong>Everything in Starter Kit</strong></li>
+              <li class="included"><span class="check-icon">✓</span> Autonomous AI Agent Engine TS</li>
+              <li class="included"><span class="check-icon">✓</span> Custom MCP Protocol Server Template</li>
+              <li class="included"><span class="check-icon">✓</span> Stripe Checkout & Webhook Suite</li>
+              <li class="included"><span class="check-icon">✓</span> Docker & GitHub Actions CI/CD</li>
+              <li class="included"><span class="check-icon">✓</span> VIP Discord Community Access</li>
+              <li class="included"><span class="check-icon">✓</span> Weekly Code Drops Repository</li>
+            </ul>
+          </div>
+          <button class="btn-primary" style="width: 100%;" onclick="openCheckout('Pro Architecture Bundle', 47)">Get Instant Access →</button>
+        </div>
+
+        <!-- Team / Enterprise Tier -->
+        <div class="pricing-card">
+          <div>
+            <h3 class="tier-name">Team License</h3>
+            <p class="tier-desc">For dev teams & agencies shipping multiple client applications.</p>
+            <div class="price-box">
+              <span class="currency">$</span>
+              <span class="amount">149</span>
+              <span class="original-price">$699</span>
+            </div>
+            <ul class="pricing-features">
+              <li class="included"><span class="check-icon">✓</span> <strong>Everything in Pro Bundle</strong></li>
+              <li class="included"><span class="check-icon">✓</span> Commercial License for 10 Developers</li>
+              <li class="included"><span class="check-icon">✓</span> Custom Architectural Code Review</li>
+              <li class="included"><span class="check-icon">✓</span> Priority 1-on-1 Support Channel</li>
+            </ul>
+          </div>
+          <button class="btn-secondary" style="width: 100%;" onclick="openCheckout('Team License', 149)">Select Team</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>© 2026 DevBits Daily. All rights reserved. Powered by Node.js & Astro 5.</p>
+      <p style="margin-top: 8px; font-size: 0.75rem;">Terms of Service • Privacy Policy • Refund Policy • Contact Support</p>
+    </footer>
+  </div>
+
+  <!-- Interactive Multi-Step Checkout Modal -->
+  <div class="modal-overlay" id="checkout-modal">
+    <div class="checkout-card">
+      <button class="modal-close" onclick="closeCheckout()">&times;</button>
+      
+      <!-- Step Progress Bar -->
+      <div class="step-indicator">
+        <div class="step-item active" id="step-1-indicator">
+          <span class="step-number">1</span>
+          <span>Order Details</span>
+        </div>
+        <div style="flex-grow: 1; height: 2px; background: var(--border-color); margin: 0 12px;"></div>
+        <div class="step-item" id="step-2-indicator">
+          <span class="step-number">2</span>
+          <span>Fast Checkout</span>
+        </div>
+      </div>
+
+      <!-- STEP 1 CONTENT -->
+      <div id="checkout-step-1">
+        <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 6px;" id="selected-package-title">Pro Architecture Bundle</h3>
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px;">Review your selection & unlock optional VIP add-ons.</p>
+
+        <!-- Order Bump High Converting Box -->
+        <label class="order-bump" for="bump-checkbox-input">
+          <input type="checkbox" class="bump-checkbox" id="bump-checkbox-input" onchange="toggleOrderBump(this)">
+          <div class="bump-content">
+            <h5>⚡ ONE-TIME OFFER: VIP AI Prompting Cheat Sheet (+$17)</h5>
+            <p>Add 50+ tested system prompts for complex agent reasoning, automated code refactoring, and benchmark testing. Normally $99, yours for only $17 on this order.</p>
+          </div>
+        </label>
+
+        <!-- Order Summary Breakdown -->
+        <div class="order-summary-box">
+          <div class="summary-row">
+            <span id="summary-tier-name">Pro Architecture Bundle</span>
+            <span id="summary-tier-price">$47.00</span>
+          </div>
+          <div class="summary-row" id="bump-summary-row" style="display: none;">
+            <span>VIP AI Prompting Cheat Sheet</span>
+            <span>$17.00</span>
+          </div>
+          <div class="summary-row total">
+            <span>Total Due Today:</span>
+            <span class="gradient-text" id="summary-total-price">$47.00</span>
+          </div>
+        </div>
+
+        <button class="btn-primary" style="width: 100%; margin-top: 10px;" onclick="goToStep(2)">
+          <span>Continue to Payment</span>
+          <span>→</span>
+        </button>
+      </div>
+
+      <!-- STEP 2 CONTENT (Form & Payment) -->
+      <div id="checkout-step-2" style="display: none;">
+        <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 6px;">Customer Information</h3>
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px;">Where should we send your instant access link & GitHub invite?</p>
+
+        <form id="checkout-form" onsubmit="handleCheckoutSubmit(event)">
+          <div class="form-group">
+            <label class="form-label" for="cust-name">Full Name</label>
+            <input type="text" class="form-input" id="cust-name" placeholder="Alex Morgan" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="cust-email">Email Address (for access delivery)</label>
+            <input type="email" class="form-input" id="cust-email" placeholder="alex@company.com" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="card-number">Card Details (Simulated Fast Checkout)</label>
+            <input type="text" class="form-input" id="card-number" placeholder="4242 •••• •••• 4242" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="card-exp">Expiry</label>
+              <input type="text" class="form-input" id="card-exp" placeholder="MM/YY" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="card-cvc">CVC</label>
+              <input type="text" class="form-input" id="card-cvc" placeholder="123" required>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary" id="pay-submit-btn" style="width: 100%; margin-top: 16px;">
+            <span id="pay-btn-text">Complete Secure Order ($47.00)</span>
+            <span id="pay-btn-spinner" style="display: none;">⏳ Processing...</span>
+          </button>
+        </form>
+        <button class="btn-secondary" style="width: 100%; margin-top: 10px; font-size: 0.85rem;" onclick="goToStep(1)">← Back to Details</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post-Purchase Thank You / One-Time Offer (OTO) Modal -->
+  <div class="modal-overlay" id="thankyou-modal">
+    <div class="checkout-card text-center" style="max-width: 580px;">
+      <div style="font-size: 3.5rem; margin-bottom: 10px;">🎉</div>
+      <span class="oto-badge">ORDER CONFIRMED & ACCESS GRANTED</span>
+      <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 10px;">Thank You, <span id="customer-confirm-name">Developer</span>!</h2>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 24px;">Your receipt and GitHub repository access link have been dispatched to <strong id="customer-confirm-email" style="color: white;">your email</strong>.</p>
+
+      <!-- OTO Upsell Box -->
+      <div style="background: rgba(124, 58, 237, 0.12); border: 1px solid var(--border-color-glow); border-radius: var(--radius-md); padding: 24px; text-align: left; margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <span style="color: var(--accent-gold); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">⚡ EXCLUSIVE NEW BUYER UPSELL</span>
+          <span style="background: rgba(244, 63, 94, 0.2); color: #f43f5e; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 700;">50% OFF TODAY</span>
+        </div>
+        <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 8px;">1-on-1 Code Architecture Review (30 Mins)</h4>
+        <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin-bottom: 16px;">Have our Principal Architect review your current project codebase, optimize your agentic AI prompts, and provide custom performance recommendations.</p>
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div>
+            <span style="font-size: 1.4rem; font-weight: 800; color: white;">$97</span>
+            <span style="text-decoration: line-through; color: var(--text-dim); margin-left: 6px; font-size: 0.9rem;">$197</span>
+          </div>
+          <button class="btn-primary" style="padding: 10px 20px; font-size: 0.9rem;" onclick="acceptUpsell()">Yes! Add to My Order →</button>
+        </div>
+      </div>
+
+      <button class="btn-secondary" style="width: 100%; font-size: 0.85rem;" onclick="finishFunnel()">No thanks, take me straight to my dashboard</button>
+    </div>
+  </div>
+
+  <!-- Live Purchase Toast Notification -->
+  <div class="buyer-toast" id="buyer-toast">
+    <div class="toast-avatar" id="toast-avatar">JD</div>
+    <div class="toast-info">
+      <h5 id="toast-name">John D. from Austin, TX</h5>
+      <p id="toast-action">Just purchased Pro Architecture Bundle</p>
+    </div>
+    <span class="toast-time">2m ago</span>
+  </div>
+
+  <script src="../scripts/app.js"></script>
+</body>
+</html>
