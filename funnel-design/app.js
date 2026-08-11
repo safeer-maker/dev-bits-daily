@@ -245,6 +245,36 @@ function showNextToast() {
   purchaseIndex = (purchaseIndex + 1) % recentPurchases.length;
 }
 
+// Interactive Agent Terminal Simulator
+let isSimulating = false;
+function runAgentSimulation() {
+  const terminal = document.getElementById('terminal-output');
+  if (!terminal || isSimulating) return;
+
+  isSimulating = true;
+  terminal.innerHTML = `<p class="term-line"><span class="term-prompt">$</span> devbits run-pipeline --goal="Build & Deploy AI App"</p>`;
+
+  const steps = [
+    { text: '[1/4] ⚡ Initializing Agentic AI Engine (Gemini 3.6 Flash)...', class: 'term-dim', delay: 400 },
+    { text: '[2/4] 🛠️ Invoking MCP Protocol: AST Parser & Tool Registry...', class: 'term-gold', delay: 1000 },
+    { text: '[3/4] 🛡️ Security Check: Input Sanitized & Rate Limits Verified.', class: 'term-dim', delay: 1600 },
+    { text: '[4/4] ✅ Solution Generated: 100% Production Ready Bundle Compiled in dist/!', class: 'term-success', delay: 2200 }
+  ];
+
+  steps.forEach(step => {
+    setTimeout(() => {
+      const line = document.createElement('p');
+      line.className = `term-line ${step.class}`;
+      line.textContent = step.text;
+      terminal.appendChild(line);
+    }, step.delay);
+  });
+
+  setTimeout(() => {
+    isSimulating = false;
+  }, 2600);
+}
+
 // Initialize Funnel on Page Load
 document.addEventListener('DOMContentLoaded', () => {
   startCountdown(15);
