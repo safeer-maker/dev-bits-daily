@@ -17,18 +17,24 @@ fs.mkdirSync(distDir, { recursive: true });
 
 // Read source files
 const htmlContent = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf-8');
-const ghPagesContent = fs.readFileSync(path.join(__dirname, 'gh-pages.html'), 'utf-8');
 const cssContent = fs.readFileSync(path.join(__dirname, 'styles.css'), 'utf-8');
 const jsContent = fs.readFileSync(path.join(__dirname, 'app.js'), 'utf-8');
 
 // Copy/Write production bundle to dist
 fs.writeFileSync(path.join(distDir, 'index.html'), htmlContent);
-fs.writeFileSync(path.join(distDir, 'gh-pages.html'), ghPagesContent);
+
+const ghPagesPath = path.join(__dirname, 'gh-pages.html');
+if (fs.existsSync(ghPagesPath)) {
+  fs.writeFileSync(path.join(distDir, 'gh-pages.html'), fs.readFileSync(ghPagesPath, 'utf-8'));
+}
+
 fs.writeFileSync(path.join(distDir, 'styles.css'), cssContent);
 fs.writeFileSync(path.join(distDir, 'app.js'), jsContent);
 
 console.log('✅ Production build successful! Compiled files written to dist/:');
 console.log('   - dist/index.html    (Dark Glassmorphism Funnel)');
-console.log('   - dist/gh-pages.html (Light Emerald & Gold GitHub Pages Theme)');
+if (fs.existsSync(ghPagesPath)) {
+  console.log('   - dist/gh-pages.html (Light Emerald & Gold GitHub Pages Theme)');
+}
 console.log('   - dist/styles.css');
 console.log('   - dist/app.js');
