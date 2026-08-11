@@ -22,19 +22,10 @@ const jsContent = fs.readFileSync(path.join(__dirname, 'app.js'), 'utf-8');
 
 // Copy/Write production bundle to dist
 fs.writeFileSync(path.join(distDir, 'index.html'), htmlContent);
-
-const ghPagesPath = path.join(__dirname, 'gh-pages.html');
-if (fs.existsSync(ghPagesPath)) {
-  fs.writeFileSync(path.join(distDir, 'gh-pages.html'), fs.readFileSync(ghPagesPath, 'utf-8'));
-}
-
 fs.writeFileSync(path.join(distDir, 'styles.css'), cssContent);
 fs.writeFileSync(path.join(distDir, 'app.js'), jsContent);
 
 console.log('✅ Production build successful! Compiled files written to dist/:');
-console.log('   - dist/index.html    (Dark Glassmorphism Funnel)');
-if (fs.existsSync(ghPagesPath)) {
-  console.log('   - dist/gh-pages.html (Light Emerald & Gold GitHub Pages Theme)');
-}
+console.log('   - dist/index.html');
 console.log('   - dist/styles.css');
 console.log('   - dist/app.js');
