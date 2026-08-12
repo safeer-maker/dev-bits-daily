@@ -38,10 +38,21 @@
         <div class="logo-icon">&lt;/&gt;</div>
         <span>DevBits <span class="gradient-text">Daily</span></span>
       </div>
-      <div class="trust-badge-header">
-        <span>⭐ 4.75/5 Rating</span>
-        <span>•</span>
-        <span>Over 2,400+ Engineers Trust Us</span>
+      <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+        <div class="theme-switcher">
+          <span class="theme-label">🎨 Theme:</span>
+          <select id="theme-select" onchange="changeTheme(this.value)" class="theme-dropdown" aria-label="Select Funnel Theme">
+            <option value="obsidian" selected>🏆 Obsidian Gold</option>
+            <option value="cyberpunk">⚡ Cyberpunk Neon</option>
+            <option value="emerald">🟢 Emerald Matrix</option>
+            <option value="light">☀️ Studio Light</option>
+          </select>
+        </div>
+        <div class="trust-badge-header">
+          <span>⭐ 4.75/5 Rating</span>
+          <span>•</span>
+          <span>Over 2,400+ Engineers Trust Us</span>
+        </div>
       </div>
     </header>
 

@@ -275,8 +275,28 @@ function runAgentSimulation() {
   }, 2600);
 }
 
+// Theme Switcher Management
+function initTheme() {
+  const savedTheme = localStorage.getItem('devbits-theme') || 'obsidian';
+  setTheme(savedTheme);
+}
+
+function setTheme(themeName) {
+  document.body.setAttribute('data-theme', themeName);
+  const themeSelect = document.getElementById('theme-select');
+  if (themeSelect) {
+    themeSelect.value = themeName;
+  }
+  localStorage.setItem('devbits-theme', themeName);
+}
+
+function changeTheme(themeName) {
+  setTheme(themeName);
+}
+
 // Initialize Funnel on Page Load
 document.addEventListener('DOMContentLoaded', () => {
+  initTheme();
   startCountdown(15);
   
   // Trigger first toast after 4s, then every 12s
