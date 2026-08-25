@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supabase Authentication Hub & Learning Lab</title>
+  
+  <!-- Google Fonts: Outfit & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Supabase JS Client v2 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo-group">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M21.362 9.354H12V.396a.396.396 0 0 0-.716-.233L2.203 12.424a.396.396 0 0 0 .319.63h9.478v8.958a.396.396 0 0 0 .716.233l9.081-12.261a.396.396 0 0 0-.319-.63z"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <h1>Supabase Auth Hub</h1>
+          <p>Interactive Authentication & JWT Learning Lab</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div id="connection-status-badge" class="badge badge-disconnected">
+          <span class="badge-dot"></span>
+          <span id="connection-status-text">Disconnected</span>
+        </div>
+        <button id="toggle-config-btn" class="btn btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">
+          ⚙️ Project Settings
+        </button>
+      </div>
+    </header>
+
+    <!-- Supabase Project Credentials Setup Banner -->
+    <section id="config-banner" class="config-banner">
+      <div class="config-header">
+        <div class="config-title">
+          <span>⚡</span>
+          <span>Connect Your Supabase Project</span>
+        </div>
+        <span class="badge" style="background: rgba(255,255,255,0.05); color: var(--text-secondary); text-transform: none;">
+          Free Tier: 50,000 MAUs Included
+        </span>
+      </div>
+
+      <div class="config-grid">
+        <div class="form-group">
+          <label class="form-label" for="supabase-url">Project URL</label>
+          <input 
+            type="url" 
+            id="supabase-url" 
+            class="form-input" 
+            placeholder="https://xyzcompany.supabase.co" 
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="supabase-anon-key">Anon Public Key</label>
+          <input 
+            type="password" 
+            id="supabase-anon-key" 
+            class="form-input" 
+            placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." 
+            autocomplete="off"
+          />
+        </div>
+
+        <div style="display: flex; gap: 0.5rem;">
+          <button id="save-config-btn" class="btn btn-primary">Connect</button>
+          <button id="clear-config-btn" class="btn btn-secondary" title="Reset Credentials">Reset</button>
+        </div>
+      </div>
+
+      <details style="margin-top: 1rem;">
+        <summary>Where do I find my Project URL & Anon Key?</summary>
+        <div style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 0.5rem; line-height: 1.6;">
+          1. Go to <a href="https://supabase.com/dashboard" target="_blank" style="color: var(--brand-green); text-decoration: none;">Supabase Dashboard</a> and open your project.<br>
+          2. Click <strong>Project Settings (gear icon)</strong> in the left sidebar &rarr; <strong>API</strong>.<br>
+          3. Copy the <strong>Project URL</strong> and the <strong>Project API Keys: `anon` `public`</strong> key.
+        </div>
+      </details>
+    </section>
+
+    <!-- Main Two-Column Layout -->
+    <main class="main-layout">
+
+      <!-- Left Column: Auth Actions & Dashboard -->
+      <section class="auth-section">
+
+        <!-- Unauthenticated State: Auth Forms -->
+        <div id="unauthenticated-view" class="card">
+          <div class="card-header">
+            <h2 class="card-title">Authentication Portal</h2>
+            <p class="card-subtitle">Sign in or register a new user to start an authenticated session.</p>
+          </div>
+
+          <!-- Tabs Navigation -->
+          <div class="tabs-nav">
+            <button class="tab-btn active" data-tab="tab-signin">Sign In</button>
+            <button class="tab-btn" data-tab="tab-signup">Sign Up</button>
+            <button class="tab-btn" data-tab="tab-magic">Magic Link</button>
+          </div>
+
+          <!-- Tab 1: Sign In -->
+          <div id="tab-signin" class="tab-pane active">
+            <form id="signin-form" class="auth-form">
+              <div class="form-group">
+                <label class="form-label" for="signin-email">Email Address</label>
+                <input type="email" id="signin-email" class="form-input" placeholder="user@example.com" required />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="signin-password">Password</label>
+                <input type="password" id="signin-password" class="form-input" placeholder="••••••••" required />
+              </div>
+
+              <button type="submit" id="btn-signin" class="btn btn-primary btn-block">
+                <span>Sign In to Application</span>
+              </button>
+              
+              <p class="form-hint text-center">
+                Validates credentials with Supabase GoTrue Auth service and exchanges them for a signed JWT session.
+              </p>
+            </form>
+          </div>
+
+          <!-- Tab 2: Sign Up -->
+          <div id="tab-signup" class="tab-pane">
+            <form id="signup-form" class="auth-form">
+              <div class="form-group">
+                <label class="form-label" for="signup-name">Full Name (User Metadata)</label>
+                <input type="text" id="signup-name" class="form-input" placeholder="Ada Lovelace" required />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="signup-email">Email Address</label>
+                <input type="email" id="signup-email" class="form-input" placeholder="user@example.com" required />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="signup-password">Password</label>
+                <input type="password" id="signup-password" class="form-input" placeholder="Min. 6 characters" minlength="6" required />
+              </div>
+
+              <button type="submit" id="btn-signup" class="btn btn-primary btn-block">
+                <span>Create New User</span>
+              </button>
+
+              <div class="form-hint">
+                💡 <em>Note:</em> If "Confirm Email" is enabled in your Supabase Auth settings, a verification link will be sent to this email before first login.
+              </div>
+            </form>
+          </div>
+
+          <!-- Tab 3: Magic Link -->
+          <div id="tab-magic" class="tab-pane">
+            <form id="magic-form" class="auth-form">
+              <div class="form-group">
+                <label class="form-label" for="magic-email">Email Address</label>
+                <input type="email" id="magic-email" class="form-input" placeholder="user@example.com" required />
+              </div>
+
+              <button type="submit" id="btn-magic" class="btn btn-secondary btn-block">
+                <span>Send Passwordless Magic Link</span>
+              </button>
+
+              <p class="form-hint">
+                Supabase generates a secure one-time OTP login link and dispatches it directly to the user's inbox.
+              </p>
+            </form>
+          </div>
+        </div>
+
+        <!-- Authenticated State: Protected Dashboard -->
+        <div id="authenticated-view" class="card dashboard" style="display: none;">
+          <div class="card-header" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
+            <div>
+              <h2 class="card-title">🔐 Protected User Dashboard</h2>
+              <p class="card-subtitle">Session successfully authenticated and verified by Supabase.</p>
+            </div>
+            <button id="btn-signout" class="btn btn-danger" style="padding: 0.45rem 0.9rem; font-size: 0.8rem;">
+              Sign Out
+            </button>
+          </div>
+
+          <!-- User Banner -->
+          <div class="user-banner">
+            <div id="user-avatar" class="user-avatar">U</div>
+            <div class="user-info">
+              <h3 id="user-display-name">User Name</h3>
+              <p id="user-display-email">user@example.com</p>
+            </div>
+          </div>
+
+          <!-- User Profile Details Grid -->
+          <div class="stats-grid">
+            <div class="stat-box">
+              <div class="stat-label">User ID (UUID)</div>
+              <div id="stat-uid" class="stat-value" style="font-size: 0.72rem;">-</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label">Auth Role</div>
+              <div id="stat-role" class="stat-value" style="color: var(--brand-green);">-</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label">Created At</div>
+              <div id="stat-created" class="stat-value" style="font-size: 0.75rem;">-</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label">Token Expiry In</div>
+              <div id="stat-token-expires" class="stat-value" style="color: var(--brand-cyan);">-</div>
+            </div>
+          </div>
+
+          <!-- Interactive Test Action: Authenticated Request -->
+          <div style="background: rgba(9, 13, 22, 0.5); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.25rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <div>
+                <h4 style="font-size: 0.95rem; font-weight: 600;">Simulate Authenticated API Request</h4>
+                <p style="font-size: 0.78rem; color: var(--text-secondary);">Tests passing the user's Bearer JWT to Supabase Postgres API</p>
+              </div>
+              <button id="btn-test-auth" class="btn btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">
+                🚀 Test Request
+              </button>
+            </div>
+            <div id="test-auth-result" class="code-content" style="max-height: 120px; font-size: 0.75rem; background: #070a12; border-radius: var(--radius-sm); display: none;"></div>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- Right Column: Interactive Token Inspector & Educational Architecture -->
+      <section class="inspector-section">
+        
+        <div class="card inspector-card">
+          <div class="card-header">
+            <h2 class="card-title">🔍 Live JWT & Auth Inspector</h2>
+            <p class="card-subtitle">Examine how the application validates user authenticity in real time.</p>
+          </div>
+
+          <!-- Live Decoded JWT Box -->
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+              <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary);">
+                Active JWT Token Payload:
+              </span>
+              <span id="jwt-status-tag" style="font-size: 0.7rem; color: var(--text-muted);">
+                No Active Session
+              </span>
+            </div>
+
+            <div class="code-container">
+              <div class="code-header">
+                <span>JSON Web Token (Decoded)</span>
+                <button id="copy-jwt-btn" class="copy-btn">📋 Copy</button>
+              </div>
+              <pre id="jwt-display" class="code-content">// When signed in, the decoded JWT claims (sub, email, exp, role) will appear here...</pre>
+            </div>
+          </div>
+
+          <!-- Step-by-Step Architecture Handshake -->
+          <div>
+            <h3 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--text-primary);">
+              How Supabase Validates Users:
+            </h3>
+
+            <div class="step-flow">
+              <div class="step-item">
+                <div class="step-number">1</div>
+                <div class="step-info">
+                  <h4>Client Sends Credentials</h4>
+                  <p>Client sends email/password securely over TLS to Supabase GoTrue Auth service (<code>/auth/v1/token</code>).</p>
+                </div>
+              </div>
+
+              <div class="step-item">
+                <div class="step-number">2</div>
+                <div class="step-info">
+                  <h4>Supabase Issues Signed JWT</h4>
+                  <p>GoTrue checks password hash in <code>auth.users</code>, creates an Access Token signed with project secret &amp; returns a Refresh Token.</p>
+                </div>
+              </div>
+
+              <div class="step-item">
+                <div class="step-number">3</div>
+                <div class="step-info">
+                  <h4>Session Cached Locally</h4>
+                  <p>The Supabase JS client persists the session in browser storage and triggers <code>onAuthStateChange</code>.</p>
+                </div>
+              </div>
+
+              <div class="step-item">
+                <div class="step-number">4</div>
+                <div class="step-info">
+                  <h4>PostgreSQL Validates with RLS</h4>
+                  <p>Requests send <code>Authorization: Bearer &lt;token&gt;</code>. Postgres decodes the JWT and applies Row Level Security policies automatically.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
